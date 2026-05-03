@@ -147,7 +147,7 @@ export default function Home() {
                 onClick={handleScan}
                 className="mt-8 bg-primary-yellow text-white font-bold px-8 py-3 rounded-full text-lg shadow-glow transition inline-flex items-center gap-2"
               >
-                <Scan size={20} /> Scan Ingredients Now
+                <Scan size={20} /> Scaaaan Ingredients Now
               </motion.button>
             </motion.div>
           </div>
