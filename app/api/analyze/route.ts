@@ -61,7 +61,7 @@ Requirements:
       // Add some generic fallback recipes for missing categories
       const categories = ["Dessert", "Main Dish", "Side Dish", "Appetizer", "Breakfast"];
       for (const cat of categories) {
-        const existing = recipes.filter(r => r.category === cat).length;
+        const existing = recipes.filter((r: any) => r.category === cat).length;
         for (let i = existing; i < 5; i++) {
           recipes.push({
             name: `${cat} Option ${i+1}`,
