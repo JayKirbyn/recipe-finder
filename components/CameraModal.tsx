@@ -125,7 +125,7 @@ export default function CameraModal({ onClose, onCapture }: CameraModalProps) {
                 <div className="flex flex-col gap-4 items-center">
                   <label className="bg-warm-orange hover:bg-orange-500 text-white px-6 py-3 rounded-full font-bold inline-flex items-center gap-2 cursor-pointer shadow-md transition">
                     <Camera className="w-5 h-5" />
-                    Take a photo
+                    Take photo 
                     <input
                       type="file"
                       accept="image/*"
