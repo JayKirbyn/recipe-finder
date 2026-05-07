@@ -4,11 +4,10 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function POST(request: NextRequest) {
   try {
-    // Check API key
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.error('ERROR: GEMINI_API_KEY is not set in .env.local');
-      return NextResponse.json({ error: 'Server misconfigured: missing API key' }, { status: 500 });
+      console.error('ERROR: GEMINI_API_KEY is not set');
+      return NextResponse.json({ error: 'Missing API key' }, { status: 500 });
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -41,16 +40,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing recipe name' }, { status: 400 });
     }
 
-    console.log('Calling Gemini API with prompt length:', prompt.length);
-    
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    // Use a confirmed working model
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" }); // dito papalit version kapag error
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    
-    console.log('Gemini response received, length:', text.length);
 
-    // Extract JSON
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     let recipe;
     if (jsonMatch) {
@@ -70,7 +65,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (err: any) {
     console.error('ERROR in /api/generate-recipe:', err.message);
-    console.error('Full error:', err);
     return NextResponse.json({ error: err.message || 'Failed to generate recipe' }, { status: 500 });
   }
 }

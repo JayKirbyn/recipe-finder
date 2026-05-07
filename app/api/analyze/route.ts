@@ -34,7 +34,7 @@ Requirements:
 - Ensure variety within each category.
 - Output valid JSON only. No markdown, no extra text.`;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }); //2.5 flash lagi
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" }); //palit version kapag error
     const result = await model.generateContent([
       prompt,
       { inlineData: { mimeType: "image/jpeg", data: base64Data } }
