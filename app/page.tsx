@@ -1,9 +1,10 @@
-
+// app/page.tsx
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import { Scan, Camera, Search, Shuffle, X, Clock, Users } from 'lucide-react';
+import Image from 'next/image';
 import CameraModal from '@/components/CameraModal';
 import ResultScreen from '@/components/ResultScreen';
 import LoadingIndicator from '@/components/LoadingIndicator';
@@ -14,13 +15,13 @@ export default function Home() {
   const [result, setResult] = useState<any>(null);
   const { scrollYProgress } = useScroll();
 
-  
+  // State for search feature
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState<any>(null);
   const [searchLoading, setSearchLoading] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
-  
+  // State for surprise recipe
   const [surpriseRecipe, setSurpriseRecipe] = useState<any>(null);
   const [surpriseLoading, setSurpriseLoading] = useState(false);
   const [isSurpriseModalOpen, setIsSurpriseModalOpen] = useState(false);
@@ -33,7 +34,7 @@ export default function Home() {
 
   const handleScan = () => setIsModalOpen(true);
 
-  
+  // Direct analysis after capture/upload – no category selection
   const handleImageCapture = async (imageBase64: string) => {
     setIsModalOpen(false);
     setIsLoading(true);
@@ -52,7 +53,7 @@ export default function Home() {
     }
   };
 
-  
+  // Search recipe by name
   const searchRecipeByName = async () => {
     if (!searchQuery.trim()) return;
     setSearchLoading(true);
@@ -65,7 +66,7 @@ export default function Home() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       setSearchResult(data);
-      setIsSearchModalOpen(true); 
+      setIsSearchModalOpen(true);
     } catch (error) {
       alert('Failed to fetch recipe');
     } finally {
@@ -73,7 +74,7 @@ export default function Home() {
     }
   };
 
-  
+  // Surprise recipe
   const getSurpriseRecipe = async () => {
     setSurpriseLoading(true);
     try {
@@ -85,7 +86,7 @@ export default function Home() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       setSurpriseRecipe(data);
-      setIsSurpriseModalOpen(true); 
+      setIsSurpriseModalOpen(true);
     } catch (error) {
       alert('Failed to get surprise recipe');
     } finally {
@@ -129,10 +130,16 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-none">
-                RECIPE<br />
-                <span className="text-primary-yellow">FINDER</span>
-              </h1>
+              {/* Logo replaces the text RECIPE FINDER */}
+              <div className="flex justify-center mb-6">
+                <img
+                  src="/my-logo.png"
+                  alt="Recipe Finder Logo"
+                  className="w-auto max-h-auto"
+                  style={{ maxHeight: '380px' }}
+                />
+              </div>
+
               <p className="text-white text-lg md:text-xl mt-6 max-w-2xl mx-auto">
                 Capture your ingredients, discover recipes instantly, and cook smarter with AI-powered food recognition.
               </p>
@@ -245,7 +252,7 @@ export default function Home() {
   );
 }
 
-
+// FeatureCard component
 function FeatureCard({ icon: Icon, title, description, actionLabel, onAction }: any) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
@@ -274,9 +281,8 @@ function FeatureCard({ icon: Icon, title, description, actionLabel, onAction }: 
   );
 }
 
-
+// Recipe Modal component
 function RecipeModal({ recipe, onClose }: { recipe: any; onClose: () => void }) {
-  
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -312,7 +318,7 @@ function RecipeModal({ recipe, onClose }: { recipe: any; onClose: () => void }) 
         </button>
 
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800 pr-8">{recipe.recipeName}</h1>
-        
+
         <div className="flex flex-wrap gap-3 mt-4 mb-6">
           <div className="flex items-center gap-1.5 bg-white/50 rounded-full px-3 py-1.5 text-sm">
             <Clock size={16} className="text-primary-yellow" /> Prep: {recipe.prepTime}
