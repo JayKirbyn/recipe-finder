@@ -34,7 +34,7 @@ Requirements:
 - Ensure variety within each category.
 - Output valid JSON only. No markdown, no extra text.`;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" }); //palit version kapag error
+    const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite-preview" }); //palit version kapag error
     const result = await model.generateContent([
       prompt,
       { inlineData: { mimeType: "image/jpeg", data: base64Data } }
@@ -44,7 +44,7 @@ Requirements:
     const text = response.text();
     console.log("Raw Gemini response length:", text.length);
 
-    // Extract JSON
+   
     let jsonMatch = text.match(/\{[\s\S]*\}/);
     let data;
     if (jsonMatch) {
@@ -55,10 +55,10 @@ Requirements:
 
     let recipes = data.recipes || [];
 
-    // Fallback if less than 25 recipes
+    
     if (recipes.length < 25) {
       console.warn(`Only ${recipes.length} recipes returned. Adding fallbacks.`);
-      // Add some generic fallback recipes for missing categories
+      
       const categories = ["Dessert", "Main Dish", "Side Dish", "Appetizer", "Breakfast"];
       for (const cat of categories) {
         const existing = recipes.filter((r: any) => r.category === cat).length;
@@ -81,7 +81,7 @@ Requirements:
     return NextResponse.json({ recipes });
   } catch (error) {
     console.error('Error:', error);
-    // Return minimal fallback
+    
     return NextResponse.json({
       recipes: []
     });

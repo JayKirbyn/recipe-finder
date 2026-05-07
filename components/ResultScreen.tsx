@@ -35,7 +35,7 @@ export default function ResultScreen({ result, onBack }: ResultScreenProps) {
     return acc;
   }, {} as Record<string, Recipe[]>);
 
-  // Limit each category to max 5 recipes
+  
   for (const cat in grouped) {
     if (grouped[cat].length > 5) grouped[cat] = grouped[cat].slice(0, 5);
   }
@@ -43,7 +43,7 @@ export default function ResultScreen({ result, onBack }: ResultScreenProps) {
   const openModal = (recipe: Recipe) => {
     setSelectedRecipe(recipe);
     setIsModalOpen(true);
-    // Prevent body scroll when modal is open
+   
     document.body.style.overflow = 'hidden';
   };
 
@@ -52,7 +52,7 @@ export default function ResultScreen({ result, onBack }: ResultScreenProps) {
     document.body.style.overflow = 'unset';
   };
 
-  // Handle Escape key
+  
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeModal();

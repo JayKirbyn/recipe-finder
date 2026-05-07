@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing recipe name' }, { status: 400 });
     }
 
-    // Use a confirmed working model
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" }); // dito papalit version kapag error
+    
+    const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite-preview" }); // dito papalit version kapag error
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();

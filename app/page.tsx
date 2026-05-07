@@ -1,4 +1,4 @@
-// app/page.tsx
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -14,13 +14,13 @@ export default function Home() {
   const [result, setResult] = useState<any>(null);
   const { scrollYProgress } = useScroll();
 
-  // State for search feature
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState<any>(null);
   const [searchLoading, setSearchLoading] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
-  // State for surprise recipe
+  
   const [surpriseRecipe, setSurpriseRecipe] = useState<any>(null);
   const [surpriseLoading, setSurpriseLoading] = useState(false);
   const [isSurpriseModalOpen, setIsSurpriseModalOpen] = useState(false);
@@ -33,7 +33,7 @@ export default function Home() {
 
   const handleScan = () => setIsModalOpen(true);
 
-  // Direct analysis after capture/upload – no category selection
+  
   const handleImageCapture = async (imageBase64: string) => {
     setIsModalOpen(false);
     setIsLoading(true);
@@ -52,7 +52,7 @@ export default function Home() {
     }
   };
 
-  // Search recipe by name
+  
   const searchRecipeByName = async () => {
     if (!searchQuery.trim()) return;
     setSearchLoading(true);
@@ -65,7 +65,7 @@ export default function Home() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       setSearchResult(data);
-      setIsSearchModalOpen(true); // Open modal after result
+      setIsSearchModalOpen(true); 
     } catch (error) {
       alert('Failed to fetch recipe');
     } finally {
@@ -73,7 +73,7 @@ export default function Home() {
     }
   };
 
-  // Surprise recipe
+  
   const getSurpriseRecipe = async () => {
     setSurpriseLoading(true);
     try {
@@ -85,7 +85,7 @@ export default function Home() {
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       setSurpriseRecipe(data);
-      setIsSurpriseModalOpen(true); // Open modal after result
+      setIsSurpriseModalOpen(true); 
     } catch (error) {
       alert('Failed to get surprise recipe');
     } finally {
@@ -245,7 +245,7 @@ export default function Home() {
   );
 }
 
-// FeatureCard component
+
 function FeatureCard({ icon: Icon, title, description, actionLabel, onAction }: any) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
@@ -274,9 +274,9 @@ function FeatureCard({ icon: Icon, title, description, actionLabel, onAction }: 
   );
 }
 
-// Reusable Recipe Modal component (same style as ResultScreen's detail modal)
+
 function RecipeModal({ recipe, onClose }: { recipe: any; onClose: () => void }) {
-  // Close on Escape key
+  
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();

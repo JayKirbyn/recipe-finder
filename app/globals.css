@@ -9,13 +9,13 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    height: auto;           /* allows content to determine height */
+    height: auto;           
     overflow-x: hidden;
-    overflow-y: auto;       /* ensures scrollbar appears when needed */
+    overflow-y: auto;       
   }
   body {
     @apply bg-white text-primary-dark font-sans antialiased;
-    min-height: 100vh;      /* force at least full viewport height, but can grow */
+    min-height: 100vh;      
   }
   ::-webkit-scrollbar {
     width: 6px;
